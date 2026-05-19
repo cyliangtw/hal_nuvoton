@@ -836,7 +836,63 @@ void CLK_DisableSysTick(void)
     SysTick->CTRL = 0;
 }
 
+/**
+  * @brief      Get selected module clock source (for Zephyr compatibility)
+  */
+uint32_t CLK_GetModuleClockSource(uint32_t u32ModuleIdx)
+{
+    uint32_t u32TmpVal = 0UL, u32TmpAddr = 0UL;
+    uint32_t au32SelTbl[5] = {0x0UL, 0x4UL, 0x8UL, 0xCUL}; /* CLK_CLKSEL0~3 */
+    uint32_t u32RTCCKEN = CLK->APBCLK0 & CLK_APBCLK0_RTCCKEN_Msk;
 
+    /* Get clock source selection setting */
+    if(u32ModuleIdx == RTC_MODULE)
+    {
+        if(u32RTCCKEN == 0UL)
+        {
+            /* Enable RTC clock to get LXT clock source */
+            CLK->APBCLK0 |= CLK_APBCLK0_RTCCKEN_Msk;
+        }
+
+        u32TmpVal = ((RTC->LXTCTL & RTC_LXTCTL_C32KS_Msk) >> RTC_LXTCTL_C32KS_Pos);
+
+        if(u32RTCCKEN == 0UL)
+        {
+            /* Disable RTC clock if it is disabled before */
+            CLK->APBCLK0 &= (~CLK_APBCLK0_RTCCKEN_Msk);
+        }
+
+    }
+    else if(MODULE_CLKSEL_Msk(u32ModuleIdx) != MODULE_NoMsk)
+    {
+        /* Get clock select control register address */
+        u32TmpAddr = (uint32_t)&CLK->CLKSEL0 + (au32SelTbl[MODULE_CLKSEL(u32ModuleIdx)]);
+
+        /* Get clock source selection setting */
+        u32TmpVal = ((inpw((uint32_t *)u32TmpAddr) & (MODULE_CLKSEL_Msk(u32ModuleIdx) << MODULE_CLKSEL_Pos(u32ModuleIdx))) >> MODULE_CLKSEL_Pos(u32ModuleIdx));
+    }
+
+    return u32TmpVal;
+
+}
+
+/**
+  * @brief      Get selected module clock divider number (for Zephyr compatibility)
+  */
+uint32_t CLK_GetModuleClockDivider(uint32_t u32ModuleIdx)
+{
+    uint32_t u32DivVal = 0UL, u32DivAddr = 0UL;
+    uint32_t au32DivTbl[6] = {0x0UL, 0x4UL, 0x8UL, 0xCUL, 0x10UL}; /* CLK_CLKDIV0~4 */
+
+    /* For both 4 bits and 8 bits divider */
+
+    /* Get clock divider control register address */
+    u32DivAddr = (uint32_t)&CLK->CLKDIV0 + (au32DivTbl[MODULE_CLKDIV(u32ModuleIdx)]);
+    /* Get clock divider number setting */
+    u32DivVal = ((inpw((uint32_t *)u32DivAddr) & (MODULE_CLKDIV_Msk(u32ModuleIdx) << MODULE_CLKDIV_Pos(u32ModuleIdx))) >> MODULE_CLKDIV_Pos(u32ModuleIdx));
+
+    return u32DivVal;
+}
 
 /*@}*/ /* end of group CLK_EXPORTED_FUNCTIONS */
 

@@ -478,7 +478,8 @@ void UART_SelectRS485Mode(UART_T *uart, uint32_t u32Mode, uint32_t u32Addr);
 uint32_t UART_Write(UART_T *uart, uint8_t pu8TxBuf[], uint32_t u32WriteBytes);
 void UART_SelectSingleWireMode(UART_T *uart);
 
-
+/* For Zephyr uart driver compatibilty, define UART_SetLineConfig */
+#define UART_SetLineConfig UART_SetLine_Config
 
 /*@}*/ /* end of group UART_EXPORTED_FUNCTIONS */
 
