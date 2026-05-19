@@ -99,6 +99,31 @@ void GPIO_DisableInt(GPIO_T *port, uint32_t u32Pin)
 }
 
 
+/**
+ * @brief       Set GPIO slew rate control (Dummy function for Zephyr compatibility)
+ *
+ * @return      None
+ *
+ * @details     This function is used to set specified GPIO slew rate control.
+ */
+void GPIO_SetSlewCtl(GPIO_T *port, uint32_t u32PinMask, uint32_t u32Mode)
+{
+    ;
+}
+
+/**
+ * @brief       Set GPIO Pull-up and Pull-down control (Dummy function for Zephyr compatibility)
+ *
+ * @return      None
+ *
+ * @details     This function is used to set specified GPIO pull-up and pull-down control.
+ */
+void GPIO_SetPullCtl(GPIO_T *port, uint32_t u32PinMask, uint32_t u32Mode)
+{
+	;
+}
+
+
 /*@}*/ /* end of group GPIO_EXPORTED_FUNCTIONS */
 
 /*@}*/ /* end of group GPIO_Driver */

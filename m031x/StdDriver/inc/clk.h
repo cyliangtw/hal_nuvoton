@@ -605,6 +605,10 @@ void CLK_EnableSysTick(uint32_t u32ClkSrc, uint32_t u32Count);
 void CLK_PowerDown(void);
 void CLK_Idle(void);
 
+/* For Zephyr compatibility, to add these 2 functions */
+uint32_t CLK_GetModuleClockSource(uint32_t u32ModuleIdx);
+uint32_t CLK_GetModuleClockDivider(uint32_t u32ModuleIdx);
+
 /*@}*/ /* end of group CLK_EXPORTED_FUNCTIONS */
 
 /*@}*/ /* end of group CLK_Driver */
