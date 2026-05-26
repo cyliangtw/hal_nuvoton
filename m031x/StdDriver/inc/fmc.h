@@ -36,12 +36,16 @@ extern "C"
 /* Define Base Address                                                                                      */
 /*----------------------------------------------------------------------------------------------------------*/
 #define FMC_APROM_BASE          0x00000000UL    /*!< APROM base address                    \hideinitializer */
+#define FMC_APROM_END           0x00080000UL    /*!< APROM end address (512 Kbytes)        \hideinitializer */
 #define FMC_LDROM_BASE          0x00100000UL    /*!< LDROM  Base Address                   \hideinitializer */
 #define FMC_SPROM_BASE          0x00200000UL    /*!< SPROM  Base Address                   \hideinitializer */
 #define FMC_CONFIG_BASE         0x00300000UL    /*!< CONFIG Base Address                   \hideinitializer */
 #define FMC_USER_CONFIG_0       0x00300000UL    /*!< User Config 0 address                 \hideinitializer */
 #define FMC_USER_CONFIG_1       0x00300004UL    /*!< User Config 1 address                 \hideinitializer */
 #define FMC_USER_CONFIG_2       0x00300008UL    /*!< User Config 2 address                 \hideinitializer */
+
+#define FMC_APROM_SIZE          FMC_APROM_END   /*!< APROM Size                            \hideinitializer */
+#define FMC_BANK_SIZE           FMC_APROM_SIZE  /*!< APROM Bank Size                       \hideinitializer */
 
 #ifndef PAGE_SIZE_2048
 #define FMC_FLASH_PAGE_SIZE     (0x200)         /*!< Flash Page Size (512 bytes)           \hideinitializer */
