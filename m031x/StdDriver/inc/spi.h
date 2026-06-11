@@ -126,6 +126,21 @@ extern "C"
 #define SPI_CLR_UNIT_TRANS_INT_FLAG(spi)   ((spi)->STATUS = SPI_STATUS_UNITIF_Msk)
 
 /**
+ * @brief Dummy macro for Zephyr compatibility, SPI 3-Wire mode disable (not supported on M031)
+ * @param[in] spi The pointer of the specified SPI module.
+ * @note M031 SPI does not support Slave 3-Wire mode (SPIx_SSCTL[4] is reserved).
+ *       This macro is defined as a no-op for compatibility.
+ */
+#define SPI_DISABLE_3WIRE_MODE(spi)    ((void)0)
+
+/**
+ * @brief Dummy macro for Zephyr compatibility, SPI 3-Wire mode enable (not supported on M031)
+ * @param[in] spi The pointer of the specified SPI module.
+ * @note M031 SPI does not support Slave 3-Wire mode.
+ */
+#define SPI_ENABLE_3WIRE_MODE(spi)     ((void)0)
+
+/**
   * @brief      Trigger RX PDMA function.
   * @param[in]  spi The pointer of the specified SPI module.
   * @return     None.
