@@ -1200,7 +1200,9 @@ typedef struct
     __O  uint32_t SSTRG;                 /*!< [0x0114] PWM Synchronous Start Trigger Register                           */
     __I  uint32_t RESERVE8[2];
     __IO uint32_t STATUS;                /*!< [0x0120] PWM Status Register                                              */
-    __I  uint32_t RESERVE9[55];
+    __I  uint32_t RESERVE9B[11];
+    __IO uint32_t AINTSTS;               /*!< For zephyr compatibility, add dummy PWM Accumulator Int Flag Register     */
+    __I  uint32_t RESERVE9[43];
     __IO uint32_t CAPINEN;               /*!< [0x0200] PWM Capture Input Enable Register                                */
     __IO uint32_t CAPCTL;                /*!< [0x0204] PWM Capture Control Register                                     */
     __I  uint32_t CAPSTS;                /*!< [0x0208] PWM Capture Status Register                                      */
